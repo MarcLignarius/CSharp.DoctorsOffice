@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <title>To Do List</title>
+  <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>
+  <link rel='stylesheet' href='~/css/styles.css' type="text/css">
+</head>
+<body>
+  <div class="container">
+    <div class="jumbotron">
+      <h1>To Do List</h1>
+    </div>
+    <h5>Details for to do patient: @Model["selectedPatient"].GetDescription()</h5><br>
+    @if (@Model["patientDoctors"].Count != 0)
+    {
+    <h5>This patient is currently found in these doctors:</h5><br>
+      @foreach (var doctor in @Model["patientDoctors"])
+      {
+        <p>@doctor.GetName()</p><br>
+      }
+    }
+    <h5>Add a doctor to this patient:</h5><br>
+    <form action='/patients/@Model["selectedPatient"].GetId()/doctors/new' method='post'>
+      <label for='doctorId'>Select a doctor:</label><br>
+      <select id='doctorId' name='doctorId' type='text'><br>
+        @foreach (var doctor in @Model["allDoctors"])
+        {
+          <option value='@doctor.GetId()'>@doctor.GetName()</option><br>
+        }
+      </select><br>
+      <br>
+      <button type='submit' class="btn btn-dark">Add</button>
+      <br>
+    </form>
+    <div id="space">
+    </div>
+    <hr>
+    <a href="/" class="btn btn-dark">Home</a>
+  </div>
+</body>
+</html>

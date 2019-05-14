@@ -1,0 +1,35 @@
+@using ToDoList.Models;
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <title>To Do List</title>
+  <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>
+  <link rel='stylesheet' href='~/css/styles.css' type="text/css">
+</head>
+<body>
+  <div class="container">
+    <div class="jumbotron">
+      <h1>To Do List</h1>
+    </div>
+    <ul>
+    @if (Model.Count == 0)
+    {
+      <p>You have no patients in your to do list!</p>
+    }
+    @if(Model.Count != 0)
+    {
+      @foreach (Item patient in Model)
+      {
+        <li><a href="/patients/@patient.GetId()" class="btn btn-dark">@patient.GetDescription()</a></li>
+      }
+    }
+    </ul>
+    <div id="space">
+    </div>
+    <hr>
+    <a href="/patients/new" class="btn btn-dark">Add a new patient</a>
+    <a href="/" class="btn btn-dark">Home</a>
+  </div>
+</body>
+</html>

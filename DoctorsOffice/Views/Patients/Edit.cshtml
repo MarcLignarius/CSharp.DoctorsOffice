@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <title>To Do List</title>
+  <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>
+  <link rel='stylesheet' href='~/css/styles.css' type="text/css">
+</head>
+<body>
+  <div class="container">
+    <div class="jumbotron">
+      <h1>To Do List</h1>
+    </div>
+    <em>You can edit the patient @Model["patient"].GetDescription() here:</em>
+    <form action="/docotrs/@Model["doctor"].GetId()/patients/@Model["patient"].GetId()" method="post">
+      <label for="newDescription">Name:</label>
+      <input type="text" name="newDescription" value="@Model["patient"].GetDescription()">
+      <button type="submit" class="btn btn-dark">Edit</button>
+    </form>
+    <div id="space">
+    </div>
+    <hr>
+    <a href="/docotrs/@Model["doctor"].GetId()/patients/@Model["patient"].GetId()" class="btn btn-dark">Return to previous page</a>
+  </div>
+</body>
+</html>
