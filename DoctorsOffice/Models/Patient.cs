@@ -6,48 +6,36 @@ namespace DoctorsOffice.Models
 {
     public class Patient
     {
-        private string _description;
-        private DateTime _dueDate;
-        private bool _completed;
+        private string _name;
+        private DateTime _birthDate;
         private int _id;
 
-        public Patient (string description, DateTime dueDate, bool completed = false, int id = 0)
+        public Patient (string name, DateTime birthDate, int id = 0)
         {
-            _description = description;
-            _dueDate = dueDate;
-            _completed = completed;
+            _name = name;
+            _birthDate = birthDate;
             _id = id;
         }
 
-        public string GetDescription()
+        public string GetName()
         {
-            return _description;
+            return _name;
         }
 
-        public void SetDescription(string newDescription)
+        public void SetName(string newName)
         {
-            _description = newDescription;
+            _name = newName;
         }
 
-        public string GetDueDate()
+        public string GetBirthDate()
         {
-            var dueDateToString = _dueDate.ToString("D");
-            return dueDateToString;
+            var birthDateToString = _birthDate.ToString("D");
+            return birthDateToString;
         }
 
-        public void SetDueDate(DateTime newDueDate)
+        public void SetBirthDate(DateTime newBirthDate)
         {
-            _dueDate = newDueDate;
-        }
-
-        public bool GetCompleted()
-        {
-            return _completed;
-        }
-
-        public void SetCompleted(bool newCompleted)
-        {
-            _completed = newCompleted;
+            _birthDate = newBirthDate;
         }
 
         public int GetId()
@@ -66,10 +54,9 @@ namespace DoctorsOffice.Models
             while(rdr.Read())
             {
                 int patientId = rdr.GetInt32(0);
-                string patientDescription = rdr.GetString(1);
-                DateTime patientDueDate = rdr.GetDateTime(2);
-                bool patientCompleted = rdr.GetBoolean(3);
-                Patient newPatient = new Patient(patientDescription, patientDueDate, patientCompleted, patientId);
+                string patientName = rdr.GetString(1);
+                DateTime patientBirthDate = rdr.GetDateTime(2);
+                Patient newPatient = new Patient(patientName, patientBirthDate, patientId);
                 allPatients.Add(newPatient);
             }
             conn.Close();
@@ -107,16 +94,14 @@ namespace DoctorsOffice.Models
             var rdr = cmd.ExecuteReader() as MySqlDataReader;
             int patientId = 0;
             string patientName = "";
-            DateTime patientDueDate = new DateTime(1999, 12, 24);
-            bool patientCompleted = false;
+            DateTime patientBirthDate = new DateTime(1999, 12, 24);
             while(rdr.Read())
             {
                 patientId = rdr.GetInt32(0);
                 patientName = rdr.GetString(1);
-                patientDueDate = rdr.GetDateTime(2);
-                patientCompleted = rdr.GetBoolean(3);
+                patientBirthDate = rdr.GetDateTime(2);
             }
-            Patient newPatient = new Patient(patientName, patientDueDate, patientCompleted, patientId);
+            Patient newPatient = new Patient(patientName, patientBirthDate, patientId);
             conn.Close();
             if (conn != null)
             {
@@ -135,10 +120,10 @@ namespace DoctorsOffice.Models
             {
                 Patient newPatient = (Patient) otherPatient;
                 bool idEquality = this.GetId() == newPatient.GetId();
-                bool descriptionEquality = this.GetDescription() == newPatient.GetDescription();
-                bool dueDateEquality = this.GetDueDate() == newPatient.GetDueDate();
-                bool completedEquality = this.GetCompleted() == newPatient.GetCompleted();
-                return (idEquality && descriptionEquality && dueDateEquality && completedEquality);
+                bool nameEquality = this.GetName() == newPatient.GetName();
+                bool birthDateEquality = this.GetBirthDate() == newPatient.GetBirthDate();
+
+                return (idEquality && nameEquality && birthDateEquality);
             }
         }
 
@@ -147,19 +132,15 @@ namespace DoctorsOffice.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"INSERT INTO patients (description, dueDate, completed) VALUES (@description, @dueDate, @completed);";
-            MySqlParameter description = new MySqlParameter();
-            description.ParameterName = "@description";
-            description.Value = this._description;
-            cmd.Parameters.Add(description);
-            MySqlParameter dueDate = new MySqlParameter();
-            dueDate.ParameterName = "@dueDate";
-            dueDate.Value = this._dueDate;
-            cmd.Parameters.Add(dueDate);
-            MySqlParameter completed = new MySqlParameter();
-            completed.ParameterName = "@completed";
-            completed.Value = this._completed;
-            cmd.Parameters.Add(completed);
+            cmd.CommandText = @"INSERT INTO patients (name, birthDate) VALUES (@name, @birthDate);";
+            MySqlParameter name = new MySqlParameter();
+            name.ParameterName = "@name";
+            name.Value = this._name;
+            cmd.Parameters.Add(name);
+            MySqlParameter birthDate = new MySqlParameter();
+            birthDate.ParameterName = "@birthDate";
+            birthDate.Value = this._birthDate;
+            cmd.Parameters.Add(birthDate);
             cmd.ExecuteNonQuery();
             _id = (int) cmd.LastInsertedId;
             conn.Close();
@@ -169,32 +150,27 @@ namespace DoctorsOffice.Models
             }
         }
 
-        public void Edit(string newDescription, DateTime newDueDate, bool newCompleted)
+        public void Edit(string newName, DateTime newBirthDate)
         {
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"UPDATE patients SET description = @newDescription, dueDate = @newDueDate, completed = @newCompleted WHERE id = @searchId;";
+            cmd.CommandText = @"UPDATE patients SET name = @newName, birthDate = @newBirthDate WHERE id = @searchId;";
             MySqlParameter searchId = new MySqlParameter();
             searchId.ParameterName = "@searchId";
             searchId.Value = _id;
             cmd.Parameters.Add(searchId);
-            MySqlParameter description = new MySqlParameter();
-            description.ParameterName = "@newDescription";
-            description.Value = newDescription;
-            cmd.Parameters.Add(description);
-            MySqlParameter dueDate = new MySqlParameter();
-            dueDate.ParameterName = "@newDueDate";
-            dueDate.Value = newDueDate;
-            cmd.Parameters.Add(dueDate);
-            MySqlParameter completed = new MySqlParameter();
-            completed.ParameterName = "@newCompleted";
-            completed.Value = newCompleted;
-            cmd.Parameters.Add(completed);
+            MySqlParameter name = new MySqlParameter();
+            name.ParameterName = "@newName";
+            name.Value = newName;
+            cmd.Parameters.Add(name);
+            MySqlParameter birthDate = new MySqlParameter();
+            birthDate.ParameterName = "@newBirthDate";
+            birthDate.Value = newBirthDate;
+            cmd.Parameters.Add(birthDate);
             cmd.ExecuteNonQuery();
-            _description = newDescription;
-            _dueDate = newDueDate;
-            _completed = newCompleted;
+            _name = newName;
+            _birthDate = newBirthDate;
             conn.Close();
             if (conn != null)
             {
@@ -219,7 +195,7 @@ namespace DoctorsOffice.Models
             }
         }
 
-        public List<Doctor> GetCategories()
+        public List<Doctor> GetDoctors()
         {
             MySqlConnection conn = DB.Connection();
             conn.Open();
@@ -236,9 +212,10 @@ namespace DoctorsOffice.Models
             List<Doctor> doctors = new List<Doctor> {};
             while(rdr.Read())
             {
-                int thisDoctorId = rdr.GetInt32(0);
+                int doctorId = rdr.GetInt32(0);
                 string doctorName = rdr.GetString(1);
-                Doctor foundDoctor = new Doctor(doctorName, thisDoctorId);
+                string doctorSpecialty = rdr.GetString(2);
+                Doctor foundDoctor = new Doctor(doctorName, doctorSpecialty, doctorId);
                 doctors.Add(foundDoctor);
             }
             conn.Close();

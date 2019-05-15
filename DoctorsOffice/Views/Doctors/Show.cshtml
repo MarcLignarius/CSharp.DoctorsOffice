@@ -2,31 +2,31 @@
 <html>
 <head>
   <meta charset='utf-8'>
-  <title>To Do List</title>
+  <title>Doctor's Office</title>
   <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>
   <link rel='stylesheet' href='~/css/styles.css' type="text/css">
 </head>
 <body>
   <div class="container">
     <div class="jumbotron">
-      <h1>To Do List</h1>
+      <h1>Doctor's Office</h1>
     </div>
-    <h5>Current to do patients in the @Model["docotr"].GetName() docotr:</h5><br>
+    <h5>Doctor @Model["doctor"].GetName() 's current patients:</h5><br>
     @if(Model.Count != 0)
     {
-      @foreach (var patient in @Model["docotrItems"])
+      @foreach (var patient in @Model["doctorPatients"])
       {
-        <a href="/doctors/@Model["docotrItems"]" class="btn btn-dark">@patient.GetDescription()</a><br>
+        <a href="/doctors/@Model["doctorPatients"]" class="btn btn-dark">@patient.GetName()</a><br>
       }
     }
     <br>
-    <h5>Add an patient to this docotr:</h5><br>
-    <form action='/doctors/@Model["docotr"].GetId()/patients/new' method='post'>
-      <label for='patientId'>Select an patient:</label><br>
+    <h5>Add a patient to this doctor:</h5><br>
+    <form action='/doctors/@Model["doctor"].GetId()/patients/new' method='post'>
+      <label for='patientId'>Select a patient:</label><br>
       <select id='patientId' name='patientId' type='text'><br>
-        @foreach (var patient in @Model["allItems"])
+        @foreach (var patient in @Model["allPatients"])
         {
-          <option value='@patient.GetId()'>@patient.GetDescription()</option><br>
+          <option value='@patient.GetId()'>@patient.GetName()</option><br>
         }
       </select><br>
       <br>
@@ -35,7 +35,7 @@
     <div id="space">
     </div>
     <hr>
-    <a href="/doctors" class="btn btn-dark">Return to docotr list</a>
+    <a href="/doctors" class="btn btn-dark">Return to doctor list</a>
     <a href="/" class="btn btn-dark">Return to homepage</a>
   </div>
 </body>

@@ -16,9 +16,9 @@ namespace DoctorsOffice.Controllers
         }
 
         [HttpPost("/doctors")]
-        public ActionResult Create(string doctorName)
+        public ActionResult Create(string doctorName, string doctorSpecialty)
         {
-            Doctor newDoctor = new Doctor(doctorName);
+            Doctor newDoctor = new Doctor(doctorName, doctorSpecialty);
             newDoctor.Save();
             List<Doctor> allDoctors = Doctor.GetAll();
             return View("Index", allDoctors);

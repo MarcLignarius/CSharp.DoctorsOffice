@@ -10,7 +10,7 @@ namespace DoctorsOffice.Tests
     {
         public DoctorTests()
         {
-            DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=to_do_list_test;";
+            DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=doctors_office_test;";
         }
 
         // [TestMethod]
