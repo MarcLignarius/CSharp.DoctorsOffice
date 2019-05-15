@@ -16,9 +16,9 @@ namespace DoctorsOffice.Controllers
         }
 
         [HttpPost("/patients")]
-        public ActionResult Create(string description, DateTime dueDate)
+        public ActionResult Create(string name, DateTime birthDate)
         {
-            Patient newPatient = new Patient(description, dueDate);
+            Patient newPatient = new Patient(name, birthDate);
             newPatient.Save();
             List<Patient> allPatients = Patient.GetAll();
             return View("Index", allPatients);
@@ -53,10 +53,10 @@ namespace DoctorsOffice.Controllers
         }
 
         // [HttpPost("/doctors/{doctorId}/patients/{patientId}")]
-        // public ActionResult Update(int doctorId, int patientId, string newDescription, DateTime newDueDate, bool newCompleted)
+        // public ActionResult Update(int doctorId, int patientId, string newName, DateTime newDueDate, bool newCompleted)
         // {
         //     Patient patient = Patient.Find(patientId);
-        //     patient.Edit(newDescription, newDueDate, newCompleted);
+        //     patient.Edit(newName, newDueDate, newCompleted);
         //     Dictionary<string, object> model = new Dictionary<string, object>();
         //     Doctor doctor = Doctor.Find(doctorId);
         //     model.Add("doctor", doctor);
@@ -89,10 +89,10 @@ namespace DoctorsOffice.Controllers
         // }
         //
         // [HttpPost("/doctors/{doctorId}/patients/{patientId}")]
-        // public ActionResult Update(int doctorId, int patientId, string newDescription)
+        // public ActionResult Update(int doctorId, int patientId, string newName)
         // {
         //     Patient patient = Patient.Find(patientId);
-        //     patient.Edit(newDescription);
+        //     patient.Edit(newName);
         //     Dictionary<string, object> model = new Dictionary<string, object>();
         //     Doctor doctor = Doctor.Find(doctorId);
         //     model.Add("doctor", doctor);

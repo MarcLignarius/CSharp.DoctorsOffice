@@ -11,7 +11,8 @@
     <div class="jumbotron">
       <h1>Doctor's Office</h1>
     </div>
-    <h5>Details for to do patient: @Model["selectedPatient"].GetDescription()</h5><br>
+    <h5>Details for patient: @Model["selectedPatient"].GetName()</h5><br>
+    <p>@Model["selectedPatient"].GetBirthDate()</p><br>
     @if (@Model["patientDoctors"].Count != 0)
     {
     <h5>This patient is currently found in these doctors:</h5><br>

@@ -83,11 +83,11 @@ namespace DoctorsOffice.Models
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
             cmd.CommandText = @"SELECT patients.* FROM doctors
-                JOIN doctors_patients ON (doctors.id = doctors_patients.doctorId)
-                JOIN patients ON (doctors_patients.patientid = patientId)
-                WHERE doctors.id = @doctorId;";
+                JOIN doctors_patients ON (doctors.id = doctors_patients.doctor_id)
+                JOIN patients ON (doctors_patients.patient_id = patients.id)
+                WHERE doctors.id = @doctor_id;";
             MySqlParameter doctorIdParameter = new MySqlParameter();
-            doctorIdParameter.ParameterName = "@doctorId";
+            doctorIdParameter.ParameterName = "@doctor_id";
             doctorIdParameter.Value = _id;
             cmd.Parameters.Add(doctorIdParameter);
             MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;

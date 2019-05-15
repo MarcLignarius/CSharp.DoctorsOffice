@@ -23,50 +23,50 @@ namespace DoctorsOffice.Tests
         [TestMethod]
         public void PatientConstructor_CreatesInstanceOfPatient_Patient()
         {
-            DateTime dueDate =  new DateTime(1999, 12, 24);
-            Patient newPatient = new Patient("test", dueDate);
+            DateTime birthDate =  new DateTime(1999, 12, 24);
+            Patient newPatient = new Patient("test", birthDate);
             Assert.AreEqual(typeof(Patient), newPatient.GetType());
         }
 
         [TestMethod]
-        public void GetDescription_ReturnsDescription_String()
+        public void GetName_ReturnsName_String()
         {
             //Arrange
-            DateTime dueDate =  new DateTime(1999, 12, 24);
-            string description = "Walk the dog.";
-            Patient newPatient = new Patient(description, dueDate);
+            DateTime birthDate =  new DateTime(1999, 12, 24);
+            string name = "Walk the dog.";
+            Patient newPatient = new Patient(name, birthDate);
 
             //Act
-            string result = newPatient.GetDescription();
+            string result = newPatient.GetName();
 
             //Assert
-            Assert.AreEqual(description, result);
+            Assert.AreEqual(name, result);
         }
 
         [TestMethod]
-        public void SetDescription_SetDescription_String()
+        public void SetName_SetName_String()
         {
             //Arrange
-            DateTime dueDate =  new DateTime(1999, 12, 24);
-            string description = "Walk the dog.";
-            Patient newPatient = new Patient("test", dueDate);
+            DateTime birthDate =  new DateTime(1999, 12, 24);
+            string name = "Walk the dog.";
+            Patient newPatient = new Patient("test", birthDate);
 
             //Act
-            string updatedDescription = "Do the dishes";
-            newPatient.SetDescription(updatedDescription);
-            string result = newPatient.GetDescription();
+            string updatedName = "Do the dishes";
+            newPatient.SetName(updatedName);
+            string result = newPatient.GetName();
 
             //Assert
-            Assert.AreEqual(updatedDescription, result);
+            Assert.AreEqual(updatedName, result);
         }
 
         [TestMethod]
         public void GetCompleted_ReturnsCompleted_Boolean()
         {
             //Arrange
-            DateTime dueDate =  new DateTime(1999, 12, 24);
+            DateTime birthDate =  new DateTime(1999, 12, 24);
             bool completed = false;
-            Patient newPatient = new Patient("test", dueDate, completed);
+            Patient newPatient = new Patient("test", birthDate, completed);
 
             //Act
             bool result = newPatient.GetCompleted();
@@ -79,8 +79,8 @@ namespace DoctorsOffice.Tests
         public void SetCompleted_SetCompleted_Boolean()
         {
             //Arrange
-            DateTime dueDate =  new DateTime(1999, 12, 24);
-            Patient newPatient = new Patient("test", dueDate);
+            DateTime birthDate =  new DateTime(1999, 12, 24);
+            Patient newPatient = new Patient("test", birthDate);
 
             //Act
             bool updatedCompleted = true;
@@ -108,12 +108,12 @@ namespace DoctorsOffice.Tests
         public void GetAll_ReturnsPatients_PatientList()
         {
             //Arrange
-            DateTime dueDate =  new DateTime(1999, 12, 24);
-            string description01 = "Walk the dog";
-            string description02 = "Wash the dishes";
-            Patient newPatient1 = new Patient(description01, dueDate);
+            DateTime birthDate =  new DateTime(1999, 12, 24);
+            string name01 = "Walk the dog";
+            string name02 = "Wash the dishes";
+            Patient newPatient1 = new Patient(name01, birthDate);
             newPatient1.Save();
-            Patient newPatient2 = new Patient(description02, dueDate);
+            Patient newPatient2 = new Patient(name02, birthDate);
             newPatient2.Save();
             List<Patient> newList = new List<Patient> { newPatient1, newPatient2 };
 
@@ -128,8 +128,8 @@ namespace DoctorsOffice.Tests
         public void Find_ReturnsCorrectPatientFromDatabase_Patient()
         {
             //Arrange
-            DateTime dueDate =  new DateTime(1999, 12, 24);
-            Patient testPatient = new Patient("Mow the lawn", dueDate);
+            DateTime birthDate =  new DateTime(1999, 12, 24);
+            Patient testPatient = new Patient("Mow the lawn", birthDate);
             testPatient.Save();
 
             //Act
@@ -140,12 +140,12 @@ namespace DoctorsOffice.Tests
         }
 
         [TestMethod]
-        public void Equals_ReturnsTrueIfDescriptionsAreTheSame_Patient()
+        public void Equals_ReturnsTrueIfNamesAreTheSame_Patient()
         {
             // Arrange, Act
-            DateTime dueDate =  new DateTime(1999, 12, 24);
-            Patient firstPatient = new Patient("Mow the lawn", dueDate);
-            Patient secondPatient = new Patient("Mow the lawn", dueDate);
+            DateTime birthDate =  new DateTime(1999, 12, 24);
+            Patient firstPatient = new Patient("Mow the lawn", birthDate);
+            Patient secondPatient = new Patient("Mow the lawn", birthDate);
 
             // Assert
             Assert.AreEqual(firstPatient, secondPatient);
@@ -155,8 +155,8 @@ namespace DoctorsOffice.Tests
         public void Save_SavesToDatabase_PatientList()
         {
             //Arrange
-            DateTime dueDate =  new DateTime(1999, 12, 24);
-            Patient testPatient = new Patient("Mow the lawn", dueDate);
+            DateTime birthDate =  new DateTime(1999, 12, 24);
+            Patient testPatient = new Patient("Mow the lawn", birthDate);
 
             //Act
             testPatient.Save();
@@ -171,8 +171,8 @@ namespace DoctorsOffice.Tests
         public void Save_AssignsIdToObject_Id()
         {
             //Arrange
-            DateTime dueDate =  new DateTime(1999, 12, 24);
-            Patient testPatient = new Patient("Mow the lawn", dueDate);
+            DateTime birthDate =  new DateTime(1999, 12, 24);
+            Patient testPatient = new Patient("Mow the lawn", birthDate);
 
             //Act
             testPatient.Save();
@@ -189,30 +189,30 @@ namespace DoctorsOffice.Tests
         public void Edit_UpdatesPatientInDatabase_String()
         {
             //Arrange
-            DateTime dueDate =  new DateTime(1999, 12, 24);
+            DateTime birthDate =  new DateTime(1999, 12, 24);
             bool completed = false;
             int id = 0;
-            Patient testPatient = new Patient("Walk the Dog", dueDate);
+            Patient testPatient = new Patient("Walk the Dog", birthDate);
             testPatient.Save();
-            string newDescription = "Mow the lawn";
+            string newName = "Mow the lawn";
             DateTime newDueDate = new DateTime(2019, 12, 24);
             bool newCompleted = true;
             int newId = 1;
 
             //Act
-            testPatient.Edit(newDescription, newDueDate, newCompleted);
-            string result = Patient.Find(testPatient.GetId()).GetDescription();
+            testPatient.Edit(newName, newDueDate, newCompleted);
+            string result = Patient.Find(testPatient.GetId()).GetName();
 
             //Assert
-            Assert.AreEqual(newDescription, result);
+            Assert.AreEqual(newName, result);
         }
 
         [TestMethod]
         public void GetCategories_ReturnsAllPatientCategories_CategoryList()
         {
             //Arrange
-            DateTime dueDate =  new DateTime(1999, 12, 24);
-            Patient testPatient = new Patient("Mow the lawn", dueDate);
+            DateTime birthDate =  new DateTime(1999, 12, 24);
+            Patient testPatient = new Patient("Mow the lawn", birthDate);
             testPatient.Save();
             Category testCategory1 = new Category("Home stuff");
             testCategory1.Save();
@@ -232,8 +232,8 @@ namespace DoctorsOffice.Tests
         public void AddCategory_AddsCategoryToPatient_CategoryList()
         {
             //Arrange
-            DateTime dueDate =  new DateTime(1999, 12, 24);
-            Patient testPatient = new Patient("Mow the lawn", dueDate);
+            DateTime birthDate =  new DateTime(1999, 12, 24);
+            Patient testPatient = new Patient("Mow the lawn", birthDate);
             testPatient.Save();
             Category testCategory = new Category("Home stuff");
             testCategory.Save();
@@ -252,11 +252,11 @@ namespace DoctorsOffice.Tests
         public void Delete_DeletesPatientAssociationsFromDatabase_PatientList()
         {
             //Arrange
-            DateTime dueDate =  new DateTime(1999, 12, 24);
+            DateTime birthDate =  new DateTime(1999, 12, 24);
             Category testCategory = new Category("Home stuff");
             testCategory.Save();
-            string testDescription = "Mow the lawn";
-            Patient testPatient = new Patient(testDescription, dueDate);
+            string testName = "Mow the lawn";
+            Patient testPatient = new Patient(testName, birthDate);
             testPatient.Save();
 
             //Act
@@ -303,35 +303,35 @@ namespace DoctorsOffice.Tests
 //         }
 //
 //         [TestMethod]
-//         public void GetDescription_ReturnsDescription_String()
+//         public void GetName_ReturnsName_String()
 //         {
 //             //Arrange
-//             string description = "Walk the dog.";
+//             string name = "Walk the dog.";
 //             DateTime itemDueDate =  new DateTime(1999, 12, 24);
-//             Patient newPatient = new Patient(description, itemDueDate, 1);
+//             Patient newPatient = new Patient(name, itemDueDate, 1);
 //
 //             //Act
-//             string result = newPatient.GetDescription();
+//             string result = newPatient.GetName();
 //
 //             //Assert
-//             Assert.AreEqual(description, result);
+//             Assert.AreEqual(name, result);
 //         }
 //
 //         [TestMethod]
-//         public void SetDescription_SetDescription_String()
+//         public void SetName_SetName_String()
 //         {
 //             //Arrange
-//             string description = "Walk the dog.";
+//             string name = "Walk the dog.";
 //             DateTime itemDueDate =  new DateTime(1999, 12, 24);
-//             Patient newPatient = new Patient(description, itemDueDate, 1);
+//             Patient newPatient = new Patient(name, itemDueDate, 1);
 //
 //             //Act
-//             string updatedDescription = "Do the dishes";
-//             newPatient.SetDescription(updatedDescription);
-//             string result = newPatient.GetDescription();
+//             string updatedName = "Do the dishes";
+//             newPatient.SetName(updatedName);
+//             string result = newPatient.GetName();
 //
 //             //Assert
-//             Assert.AreEqual(updatedDescription, result);
+//             Assert.AreEqual(updatedName, result);
 //         }
 //
 //         [TestMethod]
@@ -351,12 +351,12 @@ namespace DoctorsOffice.Tests
 //         public void GetAll_ReturnsPatients_PatientList()
 //         {
 //             //Arrange
-//             string description01 = "Walk the dog";
-//             string description02 = "Wash the dishes";
+//             string name01 = "Walk the dog";
+//             string name02 = "Wash the dishes";
 //             DateTime itemDueDate =  new DateTime(1999, 12, 24);
-//             Patient newPatient1 = new Patient(description01, itemDueDate, 1);
+//             Patient newPatient1 = new Patient(name01, itemDueDate, 1);
 //             newPatient1.Save();
-//             Patient newPatient2 = new Patient(description02, itemDueDate, 1);
+//             Patient newPatient2 = new Patient(name02, itemDueDate, 1);
 //             newPatient2.Save();
 //             List<Patient> newList = new List<Patient> { newPatient1, newPatient2 };
 //
@@ -389,8 +389,8 @@ namespace DoctorsOffice.Tests
 //         public void GetId_PatientsInstantiateWithAnIdAndGetterReturns_Int()
 //         {
 //             //Arrange
-//             string description = "Walk the dog.";
-//             Patient newPatient = new Patient(description, 1);
+//             string name = "Walk the dog.";
+//             Patient newPatient = new Patient(name, 1);
 //
 //             //Act
 //             int result = newPatient.GetId();
@@ -415,7 +415,7 @@ namespace DoctorsOffice.Tests
 //         }
 //
 //         [TestMethod]
-//         public void Equals_ReturnsTrueIfDescriptionsAreTheSame_Patient()
+//         public void Equals_ReturnsTrueIfNamesAreTheSame_Patient()
 //         {
 //             // Arrange, Act
 //             DateTime itemDueDate =  new DateTime(1999, 12, 24);
@@ -447,17 +447,17 @@ namespace DoctorsOffice.Tests
 //         {
 //             //Arrange
 //             DateTime itemDueDate =  new DateTime(1999, 12, 24);
-//             string firstDescription = "Walk the Dog";
-//             Patient testPatient = new Patient(firstDescription, itemDueDate, 1);
+//             string firstName = "Walk the Dog";
+//             Patient testPatient = new Patient(firstName, itemDueDate, 1);
 //             testPatient.Save();
-//             string secondDescription = "Mow the lawn";
+//             string secondName = "Mow the lawn";
 //
 //             //Act
-//             testPatient.Edit(secondDescription);
-//             string result = Patient.Find(testPatient.GetId()).GetDescription();
+//             testPatient.Edit(secondName);
+//             string result = Patient.Find(testPatient.GetId()).GetName();
 //
 //             //Assert
-//             Assert.AreEqual(secondDescription, result);
+//             Assert.AreEqual(secondName, result);
 //         }
 //
 //         [TestMethod]
@@ -508,8 +508,8 @@ namespace DoctorsOffice.Tests
 //             DateTime itemDueDate =  new DateTime(1999, 12, 24);
 //             Category testCategory = new Category("Home stuff");
 //             testCategory.Save();
-//             string testDescription = "Mow the lawn";
-//             Patient testPatient = new Patient(testDescription, itemDueDate);
+//             string testName = "Mow the lawn";
+//             Patient testPatient = new Patient(testName, itemDueDate);
 //             testPatient.Save();
 //
 //             //Act

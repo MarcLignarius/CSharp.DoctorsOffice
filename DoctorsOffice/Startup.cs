@@ -43,6 +43,6 @@ namespace DoctorsOffice
 
     public static class DBConfiguration
     {
-        public static string ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=doctors_office;";
+        public static string ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=doctors_office;Convert Zero Datetime=True";
     }
 }

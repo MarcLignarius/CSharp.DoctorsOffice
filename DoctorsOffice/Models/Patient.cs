@@ -132,13 +132,13 @@ namespace DoctorsOffice.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"INSERT INTO patients (name, birthDate) VALUES (@name, @birthDate);";
+            cmd.CommandText = @"INSERT INTO patients (name, birth_date) VALUES (@name, @birth_date);";
             MySqlParameter name = new MySqlParameter();
             name.ParameterName = "@name";
             name.Value = this._name;
             cmd.Parameters.Add(name);
             MySqlParameter birthDate = new MySqlParameter();
-            birthDate.ParameterName = "@birthDate";
+            birthDate.ParameterName = "@birth_date";
             birthDate.Value = this._birthDate;
             cmd.Parameters.Add(birthDate);
             cmd.ExecuteNonQuery();
@@ -155,17 +155,17 @@ namespace DoctorsOffice.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"UPDATE patients SET name = @newName, birthDate = @newBirthDate WHERE id = @searchId;";
+            cmd.CommandText = @"UPDATE patients SET name = @new_name, birthDate = @new_birth_date WHERE id = @search_id;";
             MySqlParameter searchId = new MySqlParameter();
-            searchId.ParameterName = "@searchId";
+            searchId.ParameterName = "@search_id";
             searchId.Value = _id;
             cmd.Parameters.Add(searchId);
             MySqlParameter name = new MySqlParameter();
-            name.ParameterName = "@newName";
+            name.ParameterName = "@new_name";
             name.Value = newName;
             cmd.Parameters.Add(name);
             MySqlParameter birthDate = new MySqlParameter();
-            birthDate.ParameterName = "@newBirthDate";
+            birthDate.ParameterName = "@new_birth_date";
             birthDate.Value = newBirthDate;
             cmd.Parameters.Add(birthDate);
             cmd.ExecuteNonQuery();
@@ -183,9 +183,9 @@ namespace DoctorsOffice.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"DELETE FROM patients WHERE id = @PatientId; DELETE FROM doctors_patients WHERE patient_id = @PatientId;";
+            cmd.CommandText = @"DELETE FROM patients WHERE id = @patient_id; DELETE FROM doctors_patients WHERE patient_id = @patient_id;";
             MySqlParameter patientIdParameter = new MySqlParameter();
-            patientIdParameter.ParameterName = "@PatientId";
+            patientIdParameter.ParameterName = "@patient_id";
             patientIdParameter.Value = this.GetId();
             cmd.Parameters.Add(patientIdParameter);
             cmd.ExecuteNonQuery();
@@ -203,9 +203,9 @@ namespace DoctorsOffice.Models
             cmd.CommandText = @"SELECT doctors.* FROM patients
                 JOIN doctors_patients ON (patients.id = doctors_patients.patient_id)
                 JOIN doctors ON (doctors_patients.doctor_id = doctors.id)
-                WHERE patients.id = @patientId;";
+                WHERE patients.id = @patient_id;";
             MySqlParameter patientIdParameter = new MySqlParameter();
-            patientIdParameter.ParameterName = "@patientId";
+            patientIdParameter.ParameterName = "@patient_id";
             patientIdParameter.Value = _id;
             cmd.Parameters.Add(patientIdParameter);
             var rdr = cmd.ExecuteReader() as MySqlDataReader;
@@ -231,13 +231,13 @@ namespace DoctorsOffice.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"INSERT INTO doctors_patients (doctor_id, patient_id) VALUES (@DoctorId, @PatientId);";
+            cmd.CommandText = @"INSERT INTO doctors_patients (doctor_id, patient_id) VALUES (@doctor_id, @patient_id);";
             MySqlParameter doctor_id = new MySqlParameter();
-            doctor_id.ParameterName = "@DoctorId";
+            doctor_id.ParameterName = "@doctor_id";
             doctor_id.Value = newDoctor.GetId();
             cmd.Parameters.Add(doctor_id);
             MySqlParameter patient_id = new MySqlParameter();
-            patient_id.ParameterName = "@PatientId";
+            patient_id.ParameterName = "@patient_id";
             patient_id.Value = _id;
             cmd.Parameters.Add(patient_id);
             cmd.ExecuteNonQuery();
